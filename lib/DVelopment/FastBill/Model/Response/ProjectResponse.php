@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * @JMS\XmlRoot("RESPONSE")
  */
-class ProjectResponse
+class ProjectResponse extends Response
 {
     /**
      * @var array

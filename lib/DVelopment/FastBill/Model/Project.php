@@ -90,6 +90,14 @@ class Project
     private $endDate;
 
     /**
+     * @var array
+     *
+     * @JMS\Type("array<DVelopment\FastBill\Model\Task>")
+     * @JMS\SerializedName("TASKS")
+     */
+    private $tasks = array();
+
+    /**
      * @param string $currencyCode
      *
      * @return Project
@@ -269,6 +277,26 @@ class Project
     public function setCustomer(Customer $customer)
     {
         $this->setCustomerId($customer->getCustomerId());
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
+
+    /**
+     * @param array $tasks
+     *
+     * @return Project
+     */
+    public function setTasks(array $tasks)
+    {
+        $this->tasks = $tasks;
 
         return $this;
     }

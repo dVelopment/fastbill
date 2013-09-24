@@ -4,10 +4,16 @@ namespace DVelopment\FastBill;
 
 use DVelopment\Curl\Client;
 use DVelopment\Curl\Http\GetRequest;
+use DVelopment\Curl\Serializer\SerializerWrapper;
+use DVelopment\FastBill\Exception\FastBillException;
+use DVelopment\FastBill\Model\Article;
+use DVelopment\FastBill\Model\ArticleFbApi;
 use DVelopment\FastBill\Model\Customer;
 use DVelopment\FastBill\Model\CustomerFbApi;
+use DVelopment\FastBill\Model\FbApi;
 use DVelopment\FastBill\Model\Project;
 use DVelopment\FastBill\Model\ProjectFbApi;
+use DVelopment\FastBill\Model\Request\ArticleRequest;
 use DVelopment\FastBill\Model\Request\CustomerRequest;
 use DVelopment\FastBill\Model\Request\DeleteRequest;
 use DVelopment\FastBill\Model\Request\ProjectRequest;
@@ -15,7 +21,6 @@ use DVelopment\FastBill\Model\Request\Request;
 use DVelopment\FastBill\Model\Request\TimeRequest;
 use DVelopment\FastBill\Model\Time;
 use DVelopment\FastBill\Model\TimeFbApi;
-use DVelopment\FastBill\Serializer\SerializerWrapper;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
 
@@ -72,6 +77,7 @@ class Api
      * @param Request $requestModel
      * @param string $responseType
      *
+     * @throws Exception\FastBillException
      * @return \DVelopment\FastBill\Model\FbApi
      */
     public function call(Request $requestModel, $responseType = 'DVelopment\FastBill\Model\FbApi')
@@ -87,7 +93,14 @@ class Api
 
         $request->setBody($this->serializer->serialize($requestModel, 'json'));
 
-        return $this->client->execute($request, null, $responseType)->getContent();
+        /** @var FbApi $fbApi */
+        $fbApi = $this->client->execute($request, null, $responseType)->getContent();
+
+        if (count($fbApi->getResponse()->getErrors())) {
+            throw new FastBillException($fbApi->getResponse()->getErrors());
+        }
+
+        return $fbApi;
     }
 
     /**
@@ -231,5 +244,91 @@ class Api
         $response = $this->call(new Request('time.get', array('time_id' => $id)), 'DVelopment\FastBill\Model\TimeFbApi');
 
         return reset($response->getResponse()->getTimes());
+    }
+
+    /**
+     * @return array
+     */
+    public function getTimes()
+    {
+        /** @var TimeFbApi $response */
+        $response = $this->call(new Request('time.get'), 'DVelopment\FastBill\Model\TimeFbApi');
+
+        return $response->getResponse()->getTimes();
+    }
+
+    /**
+     * @param Time $time
+     *
+     * @return FbApi
+     */
+    public function deleteTime(Time $time)
+    {
+        return $this->call(new DeleteRequest('time.delete', array('time_id' => $time->getTimeId())));
+    }
+
+    /**
+     *
+     * @return FbApi
+     */
+    public function getTasks()
+    {
+        return $this->call(new Request('task.get'));
+    }
+
+    /**
+     * @param $id
+     *
+     * @return Article
+     */
+    public function getArticle($id)
+    {
+        /** @var ArticleFbApi $response */
+        $response = $this->call(new Request('article.get', array('article_id' => $id)), 'DVelopment\FastBill\Model\ArticleFbApi');
+
+        return reset($response->getResponse()->getArticles());
+    }
+
+    /**
+     * @param $id
+     *
+     * @return array
+     */
+    public function getArticles()
+    {
+        /** @var ArticleFbApi $response */
+        $response = $this->call(new Request('article.get'), 'DVelopment\FastBill\Model\ArticleFbApi');
+
+        return $response->getResponse()->getArticles();
+    }
+
+    /**
+     * @param Article $article
+     *
+     * @return Model\Response\Response
+     */
+    public function createArticle(Article $article)
+    {
+        return $this->call(new ArticleRequest('article.create', array(), $article))->getResponse();
+    }
+
+    /**
+     * @param Article $article
+     *
+     * @return Model\Response\Response
+     */
+    public function updateArticle(Article $article)
+    {
+        return $this->call(new ArticleRequest('article.update', array(), $article))->getResponse();
+    }
+
+    /**
+     * @param Article $article
+     *
+     * @return FbApi
+     */
+    public function deleteArticle(Article $article)
+    {
+        return $this->call(new DeleteRequest('article.delete', array('article_id' => $article->getArticleId())))->getResponse();
     }
 }

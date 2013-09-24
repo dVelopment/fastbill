@@ -12,6 +12,7 @@ namespace DVelopment\Tests\Functional;
 use DVelopment\FastBill\Api;
 use DVelopment\FastBill\Model\Customer;
 use DVelopment\FastBill\Model\Project;
+use DVelopment\FastBill\Model\Task;
 use DVelopment\FastBill\Model\Time;
 use Symfony\Component\Yaml\Parser;
 
@@ -24,6 +25,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateCustomer($username, $apiKey)
     {
+        return;
         $customer = new Customer();
 
         $customer->setCustomerNumber(42)
@@ -42,6 +44,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetCustomer($username, $apiKey)
     {
+        return;
         $api = $this->getApi($username, $apiKey);
 
         print_r($api->getCustomerByNumber(42));
@@ -53,6 +56,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateProject($username, $apiKey)
     {
+        return;
         $project = new Project();
 
         $project->setCustomer($this->getApi($username, $apiKey)->getCustomerByNumber(42));
@@ -72,6 +76,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeleteProject($username, $apiKey)
     {
+        return;
         $project = new Project();
         $project->setProjectId(16068);
 
@@ -133,6 +138,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeleteProjects($username, $apiKey)
     {
+        return;
         $projects = $this->getApi($username, $apiKey)->getProjects();
 
         foreach ($projects as $project) {
@@ -146,8 +152,38 @@ class ApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeleteCustomers($username, $apiKey)
     {
+        return;
         foreach ($this->getApi($username, $apiKey)->getCustomers() as $customer) {
             print_r($this->getApi($username, $apiKey)->deleteCustomer($customer));
+        }
+    }
+
+    /**
+     * @param $username
+     * @param $apiKey
+     * @dataProvider provider
+     */
+    public function testDeleteTimes($username, $apiKey)
+    {
+        return;
+        $api = $this->getApi($username, $apiKey);
+
+        foreach ($api->getTimes() as $time) {
+            print_r($api->deleteTime($time));
+        }
+    }
+
+    /**
+     * @param $username
+     * @param $apiKey
+     * @dataProvider provider
+     */
+    public function testDeleteArticles($username, $apiKey)
+    {
+        $api = $this->getApi($username, $apiKey);
+
+        foreach ($api->getArticles() as $article) {
+            print_r($api->deleteArticle($article));
         }
     }
 

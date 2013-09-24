@@ -3,42 +3,42 @@
  * @package fastbill
  *
  * @author Daniel Holzmann <d@velopment.at>
- * @date 23.09.13
- * @time 22:08
+ * @date 24.09.13
+ * @time 20:05
  */
 
 namespace DVelopment\FastBill\Model\Request;
 
 
-use DVelopment\FastBill\Model\Time;
+use DVelopment\FastBill\Model\Article;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  * @JMS\XmlRoot("FBAPI")
  */
-class TimeRequest extends Request
+class ArticleRequest extends Request
 {
     /**
-     * @var Time
+     * @var Article
      *
      * @JMS\SerializedName("DATA")
-     * @JMS\Type("DVelopment\FastBill\Model\Time")
+     * @JMS\Type("DVelopment\FastBill\Model\Article")
      */
     protected $data;
 
     /**
      * @param string $service
      * @param array $filter
-     * @param Time $time
+     * @param Article $article
      */
-    public function __construct($service, array $filter = array(), Time $time = null)
+    public function __construct($service, array $filter = array(), Article $article = null)
     {
         parent::__construct($service, $filter);
-        $this->data = $time;
+        $this->data = $article;
     }
 
     /**
-     * @return \DVelopment\FastBill\Model\Time
+     * @return \DVelopment\FastBill\Model\Article
      */
     public function getData()
     {
@@ -46,11 +46,11 @@ class TimeRequest extends Request
     }
 
     /**
-     * @param \DVelopment\FastBill\Model\Time $data
+     * @param \DVelopment\FastBill\Model\Article $data
      *
-     * @return TimeRequest
+     * @return ArticleRequest
      */
-    public function setData($data)
+    public function setData(Article $data)
     {
         $this->data = $data;
 

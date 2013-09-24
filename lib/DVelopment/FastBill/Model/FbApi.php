@@ -10,6 +10,7 @@
 namespace DVelopment\FastBill\Model;
 
 use DVelopment\FastBill\Model\Request\Request;
+use DVelopment\FastBill\Model\Response\Response;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -28,7 +29,7 @@ class FbApi
     /**
      * @var array
      *
-     * @JMS\Type("array<string, string>")
+     * @JMS\Type("DVelopment\FastBill\Model\Response\Response")
      * @JMS\SerializedName("RESPONSE")
      */
     private $response = array();
@@ -54,7 +55,7 @@ class FbApi
     }
 
     /**
-     * @return array
+     * @return \DVelopment\FastBill\Model\Response\Response
      */
     public function getResponse()
     {
@@ -62,11 +63,11 @@ class FbApi
     }
 
     /**
-     * @param array $response
+     * @param \DVelopment\FastBill\Model\Response\Response $response
      *
      * @return FbApi
      */
-    public function setResponse($response)
+    public function setResponse(Response $response)
     {
         $this->response = $response;
 
