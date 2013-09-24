@@ -3,7 +3,7 @@
     "type": "library",
     "description": "PHP OOP wrapper fastbill.com API",
     "keywords": ["fastbill"],
-    "homepage": "https://bitbucket.org/dVelopment/fastbill",
+    "homepage": "https://github.com/dVelopment/fastbill",
     "license": "MIT",
     "authors": [
         {
