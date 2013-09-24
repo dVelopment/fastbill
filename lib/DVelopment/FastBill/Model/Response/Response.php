@@ -22,25 +22,45 @@ class Response
      * @JMS\SerializedName("ERRORS")
      * @JMS\Type("array<string, string>")
      */
-    protected $errors = array();
+    public $errors = array();
 
     /**
-     * @return mixed
-     */
-    public function getErrors()
-    {
-        return $this->errors;
-    }
-
-    /**
-     * @param mixed $errors
+     * @var string
      *
-     * @return Response
+     * @JMS\SerializedName("STATUS")
+     * @JMS\Type("string")
      */
-    public function setErrors($errors)
-    {
-        $this->errors = $errors;
+    public $status;
 
-        return $this;
-    }
+    /**
+     * @var int
+     *
+     * @JMS\SerializedName("CUSTOMER_ID")
+     * @JMS\Type("integer")
+     */
+    public $customerId;
+
+    /**
+     * @var int
+     *
+     * @JMS\SerializedName("PROJECT_ID")
+     * @JMS\Type("integer")
+     */
+    public $projectId;
+
+    /**
+     * @var int
+     *
+     * @JMS\SerializedName("TIME_ID")
+     * @JMS\Type("integer")
+     */
+    public $timeId;
+
+    /**
+     * @var int
+     *
+     * @JMS\SerializedName("ARTICLE_ID")
+     * @JMS\Type("integer")
+     */
+    public $articleId;
 }

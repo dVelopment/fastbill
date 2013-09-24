@@ -96,8 +96,8 @@ class Api
         /** @var FbApi $fbApi */
         $fbApi = $this->client->execute($request, null, $responseType)->getContent();
 
-        if (count($fbApi->getResponse()->getErrors())) {
-            throw new FastBillException($fbApi->getResponse()->getErrors());
+        if (count($fbApi->getResponse()->errors)) {
+            throw new FastBillException($fbApi->getResponse()->errors);
         }
 
         return $fbApi;
@@ -144,11 +144,11 @@ class Api
     /**
      * @param Customer $customer
      *
-     * @return array
+     * @return int
      */
     public function createCustomer(Customer $customer)
     {
-        return $this->call(new CustomerRequest('customer.create', array(), $customer))->getResponse();
+        return $this->call(new CustomerRequest('customer.create', array(), $customer))->getResponse()->customerId;
     }
 
     /**
@@ -186,11 +186,11 @@ class Api
     /**
      * @param Project $project
      *
-     * @return array
+     * @return int
      */
     public function createProject(Project $project)
     {
-        return $this->call(new ProjectRequest('project.create', array(), $project))->getResponse();
+        return $this->call(new ProjectRequest('project.create', array(), $project))->getResponse()->projectId;
     }
 
     /**
@@ -216,11 +216,11 @@ class Api
     /**
      * @param Time $time
      *
-     * @return array
+     * @return int
      */
     public function createTime(Time $time)
     {
-        return $this->call(new TimeRequest('time.create', array(), $time))->getResponse();
+        return $this->call(new TimeRequest('time.create', array(), $time))->getResponse()->timeId;
     }
 
     /**
@@ -305,11 +305,11 @@ class Api
     /**
      * @param Article $article
      *
-     * @return Model\Response\Response
+     * @return int
      */
     public function createArticle(Article $article)
     {
-        return $this->call(new ArticleRequest('article.create', array(), $article))->getResponse();
+        return $this->call(new ArticleRequest('article.create', array(), $article))->getResponse()->articleId;
     }
 
     /**
