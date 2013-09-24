@@ -57,6 +57,14 @@ class Time
     private $taskId;
 
     /**
+     * @var int
+     *
+     * @JMS\Type("integer")
+     * @JMS\SerializedName("ARTICLE_ID")
+     */
+    private $articleId;
+
+    /**
      * @var \DateTime
      *
      * @JMS\Type("DateTime<'Y-m-d H:i:s'>")
@@ -294,6 +302,26 @@ class Time
     public function setCustomer(Customer $customer)
     {
         $this->setCustomerId($customer->getCustomerId());
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getArticleId()
+    {
+        return $this->articleId;
+    }
+
+    /**
+     * @param int $articleId
+     *
+     * @return Time
+     */
+    public function setArticleId($articleId)
+    {
+        $this->articleId = $articleId;
 
         return $this;
     }
