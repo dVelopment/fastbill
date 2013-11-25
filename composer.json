@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-0": {
-            "DVelopment\\": "lib/",
+            "DVelopment\\FastBill": "lib/DVelopments",
             "DVelopment\\Tests\\": ""
         }
     },
