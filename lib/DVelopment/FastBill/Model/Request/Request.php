@@ -33,13 +33,33 @@ class Request
     protected $filter;
 
     /**
+     * @var int
+     *
+     * @JMS\Type("integer")
+     * @JMS\SerializedName("LIMIT")
+     */
+    protected $limit = 100;
+
+    /**
+     * @var int
+     *
+     * @JMS\Type("integer")
+     * @JMS\SerializedName("OFFSET")
+     */
+    protected $offset = 100;
+
+
+
+    /**
      * @param $service
      * @param array $filter
      */
-    public function __construct($service, array $filter = array())
+    public function __construct($service, array $filter = array(), $limit = 100, $offset = 0)
     {
         $this->service = $service;
         $this->filter = $filter;
+        $this->limit = $limit;
+        $this->offset = $offset;
     }
 
     /**
@@ -78,6 +98,46 @@ class Request
     public function setFilter($filter)
     {
         $this->filter = $filter;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
+
+    /**
+     * @param mixed $limit
+     *
+     * @return Request
+     */
+    public function setLimit($limit)
+    {
+        $this->limit = $limit;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOffset()
+    {
+        return $this->offset;
+    }
+
+    /**
+     * @param mixed $offset
+     *
+     * @return Request
+     */
+    public function setOffset($offset)
+    {
+        $this->offset = $offset;
 
         return $this;
     }
