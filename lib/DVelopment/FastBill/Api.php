@@ -19,6 +19,8 @@ use DVelopment\FastBill\Model\Request\DeleteRequest;
 use DVelopment\FastBill\Model\Request\ProjectRequest;
 use DVelopment\FastBill\Model\Request\Request;
 use DVelopment\FastBill\Model\Request\TimeRequest;
+use DVelopment\FastBill\Model\Task;
+use DVelopment\FastBill\Model\TaskFbApi;
 use DVelopment\FastBill\Model\Time;
 use DVelopment\FastBill\Model\TimeFbApi;
 use JMS\Serializer\Serializer;
@@ -278,11 +280,14 @@ class Api
      * @param int $limit
      * @param int $offset
      *
-     * @return FbApi
+     * @return Task[]
      */
     public function getTasks($limit = 100, $offset = 0)
     {
-        return $this->call(new Request('task.get', array(), $limit, $offset));
+        /** @var TaskFbApi $response */
+        $response = $this->call(new Request('task.get', array(), $limit, $offset), 'DVelopment\FastBill\Model\TaskFbApi');
+
+        return $response->getResponse()->getTasks();
     }
 
     /**

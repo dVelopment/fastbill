@@ -9,6 +9,7 @@
 
 namespace DVelopment\FastBill\Model\Response;
 
+use DVelopment\FastBill\Model\Article;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -25,7 +26,7 @@ class ArticleResponse extends Response
     private $articles = array();
 
     /**
-     * @return array
+     * @return Article[]
      */
     public function getArticles()
     {

@@ -9,6 +9,7 @@
 
 namespace DVelopment\FastBill\Model\Response;
 
+use DVelopment\FastBill\Model\Project;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -25,7 +26,7 @@ class ProjectResponse extends Response
     private $projects = array();
 
     /**
-     * @return array
+     * @return Project[]
      */
     public function getProjects()
     {

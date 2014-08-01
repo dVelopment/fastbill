@@ -9,6 +9,7 @@
 
 namespace DVelopment\FastBill\Model\Response;
 
+use DVelopment\FastBill\Model\Time;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -25,7 +26,7 @@ class TimeResponse extends Response
     private $times = array();
 
     /**
-     * @return array
+     * @return Time[]
      */
     public function getTimes()
     {

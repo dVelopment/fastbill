@@ -9,6 +9,7 @@
 
 namespace DVelopment\FastBill\Model\Response;
 
+use DVelopment\FastBill\Model\Customer;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -25,7 +26,7 @@ class CustomerResponse extends Response
     private $customers = array();
 
     /**
-     * @return array
+     * @return Customer[]
      */
     public function getCustomers()
     {
