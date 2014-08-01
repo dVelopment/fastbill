@@ -118,7 +118,7 @@ class Api
 
     /**
      *
-     * @return array
+     * @return \DVelopment\FastBill\Model\Customer[]
      */
     public function getCustomers()
     {
@@ -173,7 +173,7 @@ class Api
 
     /**
      *
-     * @return array
+     * @return \DVelopment\FastBill\Model\Project[]
      */
     public function getProjects()
     {
@@ -247,7 +247,7 @@ class Api
     }
 
     /**
-     * @return array
+     * @return \DVelopment\FastBill\Model\Time[]
      */
     public function getTimes()
     {
@@ -292,7 +292,7 @@ class Api
     /**
      * @param $id
      *
-     * @return array
+     * @return Article[]
      */
     public function getArticles()
     {
