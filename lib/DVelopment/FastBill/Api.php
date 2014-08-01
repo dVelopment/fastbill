@@ -117,13 +117,15 @@ class Api
     }
 
     /**
+     * @param int $limit
+     * @param int $offset
      *
      * @return \DVelopment\FastBill\Model\Customer[]
      */
-    public function getCustomers()
+    public function getCustomers($limit = 100, $offset = 0)
     {
         /** @var CustomerFbApi $response */
-        $response = $this->call(new Request('customer.get'), 'DVelopment\FastBill\Model\CustomerFbApi');
+        $response = $this->call(new Request('customer.get', array(), $limit, $offset), 'DVelopment\FastBill\Model\CustomerFbApi');
 
         return $response->getResponse()->getCustomers();
     }
@@ -172,13 +174,15 @@ class Api
     }
 
     /**
+     * @param int $limit
+     * @param int $offset
      *
      * @return \DVelopment\FastBill\Model\Project[]
      */
-    public function getProjects()
+    public function getProjects($limit = 100, $offset = 0)
     {
         /** @var ProjectFbApi $response */
-        $response = $this->call(new Request('project.get'), 'DVelopment\FastBill\Model\ProjectFbApi');
+        $response = $this->call(new Request('project.get', array(), $limit, $offset), 'DVelopment\FastBill\Model\ProjectFbApi');
 
         return $response->getResponse()->getProjects();
     }
@@ -247,12 +251,15 @@ class Api
     }
 
     /**
+     * @param int $limit
+     * @param int $offset
+     *
      * @return \DVelopment\FastBill\Model\Time[]
      */
-    public function getTimes()
+    public function getTimes($limit = 100, $offset = 0)
     {
         /** @var TimeFbApi $response */
-        $response = $this->call(new Request('time.get'), 'DVelopment\FastBill\Model\TimeFbApi');
+        $response = $this->call(new Request('time.get', array(), $limit, $offset), 'DVelopment\FastBill\Model\TimeFbApi');
 
         return $response->getResponse()->getTimes();
     }
@@ -268,12 +275,14 @@ class Api
     }
 
     /**
+     * @param int $limit
+     * @param int $offset
      *
      * @return FbApi
      */
-    public function getTasks()
+    public function getTasks($limit = 100, $offset = 0)
     {
-        return $this->call(new Request('task.get'));
+        return $this->call(new Request('task.get', array(), $limit, $offset));
     }
 
     /**
@@ -290,14 +299,15 @@ class Api
     }
 
     /**
-     * @param $id
+     * @param int $limit
+     * @param int $offset
      *
      * @return Article[]
      */
-    public function getArticles()
+    public function getArticles($limit = 100, $offset = 0)
     {
         /** @var ArticleFbApi $response */
-        $response = $this->call(new Request('article.get'), 'DVelopment\FastBill\Model\ArticleFbApi');
+        $response = $this->call(new Request('article.get', array(), $limit, $offset), 'DVelopment\FastBill\Model\ArticleFbApi');
 
         return $response->getResponse()->getArticles();
     }
