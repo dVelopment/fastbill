@@ -10,6 +10,7 @@
 namespace DVelopment\FastBill\Model;
 
 use DVelopment\FastBill\Model\Response\CustomerResponse;
+use DVelopment\FastBill\Model\Response\Response;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -38,7 +39,7 @@ class CustomerFbApi extends FbApi
      *
      * @return FbApi
      */
-    public function setResponse($response)
+    public function setResponse(Response $response)
     {
         $this->response = $response;
 
