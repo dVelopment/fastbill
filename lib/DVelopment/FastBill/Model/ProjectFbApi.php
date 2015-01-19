@@ -11,6 +11,7 @@ namespace DVelopment\FastBill\Model;
 
 use DVelopment\FastBill\Model\Response\ProjectResponse;
 use JMS\Serializer\Annotation as JMS;
+use DVelopment\FastBill\Model\Response\Response;
 
 /**
  * @JMS\XmlRoot("FBAPI")
@@ -38,7 +39,7 @@ class ProjectFbApi extends FbApi
      *
      * @return ProjectFbApi
      */
-    public function setResponse($response)
+    public function setResponse(Response $response)
     {
         $this->response = $response;
 
