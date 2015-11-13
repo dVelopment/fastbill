@@ -36,6 +36,14 @@ class Customer
      * @var string
      *
      * @JMS\Type("string")
+     * @JMS\SerializedName("CUSTOMER_EXT_UID")
+     */
+    private $customerExtUid;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
      * @JMS\SerializedName("CUSTOMER_TYPE")
      */
     private $customerType = 'business';
@@ -240,6 +248,22 @@ class Customer
     private $bankAccountOwner;
 
     /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("DASHBOARD_URL")
+     */
+    private $dashboardUrl;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("CHANGEDATA_URL")
+     */
+    private $changedataUrl;
+
+    /**
      * @param string $accountReceivable
      *
      * @return Customer
@@ -427,6 +451,25 @@ class Customer
     public function getCurrencyCode()
     {
         return $this->currencyCode;
+    }
+
+    /**
+     * @param string $customerExtUid
+     *
+     * @return Customer
+     */
+    public function setCustomerExtUid($customerExtUid)
+    {
+        $this->customerExtUid = $customerExtUid;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomerExtUid()
+    {
+        return $this->customerExtUid;
     }
 
     /**
@@ -770,5 +813,43 @@ class Customer
         $this->customerId = $customerId;
 
         return $this;
+    }
+
+    /**
+     * @param string $dashboardUrl
+     *
+     * @return Customer
+     */
+    public function setDashboardUrl($dashboardUrl)
+    {
+        $this->dashboardUrl = $dashboardUrl;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDashboardUrl()
+    {
+        return $this->dashboardUrl;
+    }
+
+    /**
+     * @param string $changedataUrl
+     *
+     * @return Customer
+     */
+    public function setChangedataUrl($changedataUrl)
+    {
+        $this->changedataUrl = $changedataUrl;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getChangedataUrl()
+    {
+        return $this->changedataUrl;
     }
 }

@@ -59,8 +59,8 @@ class Response
     /**
      * @var int
      *
-     * @JMS\SerializedName("ARTICLE_ID")
-     * @JMS\Type("integer")
+     * @JMS\SerializedName("ARTICLE_NUMBER")
+     * @JMS\Type("string")
      */
-    public $articleId;
+    public $articleNumber;
 }

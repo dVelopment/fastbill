@@ -17,17 +17,9 @@ use JMS\Serializer\Annotation as JMS;
 class Article
 {
     /**
-     * @var int
+     * @var string
      *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("ARTICLE_ID")
-     */
-    private $articleId;
-
-    /**
-     * @var int
-     *
-     * @JMS\Type("integer")
+     * @JMS\Type("string")
      * @JMS\SerializedName("ARTICLE_NUMBER")
      */
     private $articleNumber;
@@ -49,20 +41,20 @@ class Article
     private $description;
 
     /**
-     * @var string
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("UNIT")
-     */
-    private $unit;
-
-    /**
      * @var float
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("UNIT_PRICE")
      */
     private $unitPrice;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("SETUP_FEE ")
+     */
+    private $setupFee;
 
     /**
      * @var string
@@ -79,6 +71,62 @@ class Article
      * @JMS\SerializedName("VAT_PERCENT")
      */
     private $vatPercent;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("TRANSLATION")
+     */
+    private $translation;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("SUBSCRIPTION_INTERVAL")
+     */
+    private $subscriptionInterval;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("SUBSCRIPTION_TRIAL")
+     */
+    private $subscriptionTrial;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("SUBSCRIPTION_DURATION")
+     */
+    private $subscriptionDuration;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("SUBSCRIPTION_DURATION_FOLLOW")
+     */
+    private $subscriptionDurationFollow;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("SUBSCRIPTION_CANCELLATION")
+     */
+    private $subscriptionCancellation;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("CHECKOUT_URL")
+     */
+    private $checkoutUrl;
 
     /**
      * @param int $articleNumber
@@ -157,25 +205,6 @@ class Article
     }
 
     /**
-     * @param string $unit
-     *
-     * @return Article
-     */
-    public function setUnit($unit)
-    {
-        $this->unit = $unit;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUnit()
-    {
-        return $this->unit;
-    }
-
-    /**
      * @param float $unitPrice
      *
      * @return Article
@@ -192,6 +221,25 @@ class Article
     public function getUnitPrice()
     {
         return $this->unitPrice;
+    }
+
+    /**
+     * @param string $setupFee
+     *
+     * @return Article
+     */
+    public function setSetupFee($setupFee)
+    {
+        $this->setupFee = $setupFee;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSetupFee()
+    {
+        return $this->setupFee;
     }
 
     /**
@@ -214,21 +262,135 @@ class Article
     }
 
     /**
-     * @return int
-     */
-    public function getArticleId()
-    {
-        return $this->articleId;
-    }
-
-    /**
-     * @param int $articleId
+     * @param string $translation
      *
      * @return Article
      */
-    public function setArticleId($articleId)
+    public function setTranslation($translation)
     {
-        $this->articleId = $articleId;
+        $this->translation = $translation;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTranslation()
+    {
+        return $this->translation;
+    }
+
+    /**
+     * @param string $subscriptionInterval
+     *
+     * @return Article
+     */
+    public function setSubscriptionInterval($subscriptionInterval)
+    {
+        $this->subscriptionInterval = $subscriptionInterval;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubscriptionInterval()
+    {
+        return $this->subscriptionInterval;
+    }
+
+    /**
+     * @param string $subscriptionTrial
+     *
+     * @return Article
+     */
+    public function setSubscriptionTrial($subscriptionTrial)
+    {
+        $this->subscriptionTrial = $subscriptionTrial;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubscriptionTrial()
+    {
+        return $this->subscriptionTrial;
+    }
+
+    /**
+     * @param string $subscriptionDuration
+     *
+     * @return Article
+     */
+    public function setSubscriptionDuration($subscriptionDuration)
+    {
+        $this->subscriptionDuration = $subscriptionDuration;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubscriptionDuration()
+    {
+        return $this->subscriptionDuration;
+    }
+
+    /**
+     * @param string $subscriptionDurationFollow
+     *
+     * @return Article
+     */
+    public function setSubscriptionDurationFollow($subscriptionDurationFollow)
+    {
+        $this->subscriptionDurationFollow = $subscriptionDurationFollow;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubscriptionDurationFollow()
+    {
+        return $this->subscriptionDurationFollow;
+    }
+
+    /**
+     * @param string $subscriptionCancellation
+     *
+     * @return Article
+     */
+    public function setSubscriptionCancellation($subscriptionCancellation)
+    {
+        $this->subscriptionCancellation = $subscriptionCancellation;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubscriptionCancellation()
+    {
+        return $this->subscriptionCancellation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCheckoutUrl()
+    {
+        return $this->checkoutUrl;
+    }
+
+    /**
+     * @param string $checkoutUrl
+     *
+     * @return Article
+     */
+    public function setCheckoutUrl($checkoutUrl)
+    {
+        $this->checkoutUrl = $checkoutUrl;
 
         return $this;
     }

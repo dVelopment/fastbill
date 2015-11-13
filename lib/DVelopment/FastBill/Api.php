@@ -2,7 +2,7 @@
 
 namespace DVelopment\FastBill;
 
-use DVelopment\Curl\Client;
+use DVelopment\Curl\Client as Client;
 use DVelopment\Curl\Http\GetRequest;
 use DVelopment\Curl\Serializer\SerializerWrapper;
 use DVelopment\FastBill\Exception\FastBillException;
@@ -18,11 +18,14 @@ use DVelopment\FastBill\Model\Request\CustomerRequest;
 use DVelopment\FastBill\Model\Request\DeleteRequest;
 use DVelopment\FastBill\Model\Request\ProjectRequest;
 use DVelopment\FastBill\Model\Request\Request;
+use DVelopment\FastBill\Model\Request\SubscriptionSecureLinkRequest;
 use DVelopment\FastBill\Model\Request\TimeRequest;
 use DVelopment\FastBill\Model\Task;
 use DVelopment\FastBill\Model\TaskFbApi;
 use DVelopment\FastBill\Model\Time;
 use DVelopment\FastBill\Model\TimeFbApi;
+use DVelopment\FastBill\Model\Subscription;
+use DVelopment\FastBill\Model\SubscriptionSecureLinkFbApi;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
 
@@ -36,7 +39,7 @@ use JMS\Serializer\SerializerBuilder;
 
 class Api
 {
-    const API_BASE_URL = 'https://my.fastbill.com/api/1.0/api.php';
+    const API_BASE_URL = 'https://automatic.fastbill.com/api/1.0/api.php';
 
     /**
      * @var Client
@@ -114,8 +117,9 @@ class Api
     {
         /** @var CustomerFbApi $response */
         $response = $this->call(new Request('customer.get', array('customer_id' => $customerId)), 'DVelopment\FastBill\Model\CustomerFbApi');
+        $customers = $response->getResponse()->getCustomers();
 
-        return reset($response->getResponse()->getCustomers());
+        return reset($customers);
     }
 
     /**
@@ -141,8 +145,23 @@ class Api
     {
         /** @var CustomerFbApi $response */
         $response = $this->call(new Request('customer.get', array('customer_number' => $number)), 'DVelopment\FastBill\Model\CustomerFbApi');
+        $customers = $response->getResponse()->getCustomers();
 
-        return reset($response->getResponse()->getCustomers());
+        return reset($customers);
+    }
+
+    /**
+     * @param string $customerExtUid
+     *
+     * @return \DVelopment\FastBill\Model\Customer
+     */
+    public function getCustomerByExtUid($customerExtUid)
+    {
+        /** @var CustomerFbApi $response */
+        $response = $this->call(new Request('customer.get', array('customer_ext_uid' => $customerExtUid)), 'DVelopment\FastBill\Model\CustomerFbApi');
+        $customers = $response->getResponse()->getCustomers();
+
+        return reset($customers);
     }
 
     /**
@@ -324,7 +343,7 @@ class Api
      */
     public function createArticle(Article $article)
     {
-        return $this->call(new ArticleRequest('article.create', array(), $article))->getResponse()->articleId;
+        return $this->call(new ArticleRequest('article.create', array(), $article))->getResponse()->articleNumber;
     }
 
     /**
@@ -344,6 +363,102 @@ class Api
      */
     public function deleteArticle(Article $article)
     {
-        return $this->call(new DeleteRequest('article.delete', array('article_id' => $article->getArticleId())))->getResponse();
+        return $this->call(new DeleteRequest('article.delete', array('article_id' => $article->getArticleNumber())))->getResponse();
+    }
+
+    /* ---------------------------- NEW ---------------------------- */
+
+    /**
+     * @param int $subscriptionId
+     *
+     * @return \DVelopment\FastBill\Model\Subscription
+     */
+    public function getSubscription($subscriptionId)
+    {
+        /** @var SubscriptionFbApi $response */
+        $response = $this->call(new Request('subscription.get', array('subscription_id' => $subscriptionId)), 'DVelopment\FastBill\Model\SubscriptionFbApi');
+        $subscriptions = $response->getResponse()->getSubscriptions();
+
+        return reset($subscriptions);
+    }
+
+    /**
+     * @param int $limit
+     * @param int $offset
+     *
+     * @return \DVelopment\FastBill\Model\Subscription[]
+     */
+    public function getSubscriptions($limit = 100, $offset = 0)
+    {
+        /** @var SubscriptionFbApi $response */
+        $response = $this->call(new Request('subscription.get', array(), $limit, $offset), 'DVelopment\FastBill\Model\SubscriptionFbApi');
+
+        return $response->getResponse()->getSubscriptions();
+    }
+
+    /**
+     * @param int $subscriptionId
+     *
+     * @return \DVelopment\FastBill\Model\Subscription
+     */
+    public function getSubscriptionByNumber($number)
+    {
+        /** @var SubscriptionFbApi $response */
+        $response = $this->call(new Request('subscription.get', array('subscription_number' => $number)), 'DVelopment\FastBill\Model\SubscriptionFbApi');
+        $subscriptions = $response->getResponse()->getSubscriptions();
+
+        return reset($subscriptions);
+    }
+
+    /**
+     * @param string $subscriptionExtUid
+     *
+     * @return \DVelopment\FastBill\Model\Subscription
+     */
+    public function getSubscriptionByExtUid($subscriptionExtUid)
+    {
+        /** @var SubscriptionFbApi $response */
+        $response = $this->call(new Request('subscription.get', array('subscription_ext_uid' => $subscriptionExtUid)), 'DVelopment\FastBill\Model\SubscriptionFbApi');
+        $subscriptions = $response->getResponse()->getSubscriptions();
+
+        return reset($subscriptions);
+    }
+
+    /**
+     * @param string $customerId
+     *
+     * @return \DVelopment\FastBill\Model\Subscription
+     */
+    public function getSubscriptionByCustomerId($customerId)
+    {
+        /** @var SubscriptionFbApi $response */
+        $response = $this->call(new Request('subscription.get', array('customer_id' => $customerId)), 'DVelopment\FastBill\Model\SubscriptionFbApi');
+        $subscriptions = $response->getResponse()->getSubscriptions();
+
+        return reset($subscriptions);
+    }
+
+    /**
+     * @param string $customerExtUid
+     *
+     * @return \DVelopment\FastBill\Model\Subscription
+     */
+    public function getSubscriptionByCustomerExtUid($customerExtUid)
+    {
+        /** @var SubscriptionFbApi $response */
+        $response = $this->call(new Request('subscription.get', array('customer_ext_uid' => $customerExtUid)), 'DVelopment\FastBill\Model\SubscriptionFbApi');
+        $subscriptions = $response->getResponse()->getSubscriptions();
+
+        return reset($subscriptions);
+    }
+
+    /**
+     * @param Subscription $subscription
+     *
+     * @return SubscriptionSecureLinkFbApi
+     */
+    public function getSubscriptionSecureLinks($subscription)
+    {
+        return $this->call(new SubscriptionSecureLinkRequest('subscription.createsecurelink', array('subscription_id' => $subscription->getSubscriptionId())), 'DVelopment\FastBill\Model\SubscriptionSecureLinkFbApi')->getResponse();
     }
 }
