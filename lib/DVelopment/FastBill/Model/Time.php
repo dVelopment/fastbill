@@ -60,9 +60,9 @@ class Time
      * @var int
      *
      * @JMS\Type("integer")
-     * @JMS\SerializedName("ARTICLE_ID")
+     * @JMS\SerializedName("ARTICLE_NUMBER")
      */
-    private $articleId;
+    private $articleNumber;
 
     /**
      * @var \DateTime
@@ -309,19 +309,19 @@ class Time
     /**
      * @return int
      */
-    public function getArticleId()
+    public function getArticleNumber()
     {
-        return $this->articleId;
+        return $this->articleNumber;
     }
 
     /**
-     * @param int $articleId
+     * @param int $articleNumber
      *
      * @return Time
      */
-    public function setArticleId($articleId)
+    public function setArticleNumber($articleNumber)
     {
-        $this->articleId = $articleId;
+        $this->articleNumber = $articleNumber;
 
         return $this;
     }
