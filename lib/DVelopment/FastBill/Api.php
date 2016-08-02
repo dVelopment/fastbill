@@ -195,6 +195,16 @@ class Api
     }
 
     /**
+     * @param Subscription $subscription
+     *
+     * @return array
+     */
+    public function updateSubscription(Subscription $subscription)
+    {
+        return $this->call(new CustomerRequest('subscription.update', array(), $subscription))->getResponse();
+    }
+
+    /**
      * @param int $limit
      * @param int $offset
      *
